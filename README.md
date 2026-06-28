@@ -176,3 +176,17 @@ public class ProductController {
         }
     }
 ```
+---
+## Exercise 06: Kiểm thử API toàn diện với Postman
+Tạo 4 Request trong Collection `Product Management Tests` tương ứng với code đã viết:
+
+1. Get All Products (GET).
+   ![Get All Products](assets/postman-get-all-products.png)
+2. Add Product (POST - kèm Body JSON).
+   ![Add Products](assets/postman-add-product.png)
+3. Update Product (PUT - kèm ID và Body JSON).
+   ![Get All Products](assets/postman-edit-product.png)
+4. Delete Product (DELETE - kèm ID).
+   ![Get All Products](assets/postman-delete-product.png)
+
+Export Collection ra file `assets/Product Management Tests.postman_collection.json`.
