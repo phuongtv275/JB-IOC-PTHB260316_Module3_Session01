@@ -108,3 +108,71 @@ public class ProductController {
 
 Sau khi khởi động Spring boot, truy cập vào url `http://localhost:8080/api/products` để lấy danh sách sản phầm.
 ![List Products API](assets/list-product-api.png)
+---
+## Exercise 05: Hoàn thiện các thao tác CRUD
+Nâng cấp `ProductService` và `ProductController` để thêm các chức năng:
+- Thêm mới: Method POST - `/api/products` (Nhận JSON product và thêm vào List).
+- Cập nhật: Method PUT - `/api/products/{id}` (Tìm product theo ID và sửa thông tin).
+- Xóa: Method DELETE - `/api/products/{id}` (Xóa product khỏi List).
+
+`ProductController`:
+```java
+@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+
+    @Autowired
+    private IProductService productService;
+
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
+
+    @PostMapping
+    public Product saveProduct(@RequestBody Product product) {
+        return productService.saveProduct(product);
+    }
+
+    @PutMapping("/{id}")
+    public Product updateProduct(
+            @PathVariable int id,
+            @RequestBody Product product) {
+        return productService.updateProduct(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable int id) {
+        productService.deleteProduct(id);
+    }
+}
+```
+`ProductService`:
+```java
+    @Override
+    public Product saveProduct(Product product) {
+        products.add(product);
+        return product;
+    }
+
+    @Override
+    public Product updateProduct(Product product) {
+        for (Product p : products) {
+            if (p.getId() == product.getId()) {
+                products.remove(p);
+                products.add(product);
+                return product;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        for (Product p : products) {
+            if (p.getId() == id) {
+                products.remove(p);
+            }
+        }
+    }
+```
