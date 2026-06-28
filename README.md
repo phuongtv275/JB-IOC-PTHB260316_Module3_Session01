@@ -86,3 +86,25 @@ public class ProductController {}
 @Service
 public class ProductServiceImpl implements IProductService {} 
 ```
+---
+## Exercise 04: Xây dựng API lấy danh sách sản phẩm (GET)
+
+API `getAllProducts` được xây dựng bằng cách định nghĩa annotation `@GetMapping(/api/products)` với `/api/products` là path để truy cập.
+```java
+@RestController
+public class ProductController {
+
+    @Autowired
+    private IProductService productService;
+
+    @GetMapping("/api/products")
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
+    }
+}
+``` 
+- Hàm `getAllProducts` trả về `List<Product>`.
+- Jackson convert `List<Product>` -> Json.
+
+Sau khi khởi động Spring boot, truy cập vào url `http://localhost:8080/api/products` để lấy danh sách sản phầm.
+![List Products API](assets/list-product-api.png)
